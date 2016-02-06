@@ -1,7 +1,7 @@
 <?php
 /**
  * ################################################################################
- * WP MyBackup
+ * MyChunkUploader
  * 
  * Copyright 2016 Eugen Mihailescu <eugenmihailescux@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * ################################################################################
  * 
  * Short description:
- * URL: http://wpmybackup.mynixworld.info
+ * URL: https://github.com/eugenmihailescu/my-chunk-uploader
  * 
  * Git revision information:
  * 
@@ -33,7 +33,6 @@
  * @id      : MyChunkUploader.php | Mon Dec 28 17:57:55 2015 +0100 | Eugen Mihailescu <eugenmihailescux@gmail.com> $
 */
 
-namespace MyBackup;
 
 if ( ! function_exists( __NAMESPACE__ . '\\_esc' ) ) {
 function _esc( $text ) {

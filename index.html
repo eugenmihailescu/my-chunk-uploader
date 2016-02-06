@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+#file {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#abort {
+	background-color: #FA9F31;
+	cursor: pointer;
+	color: #000;
+}
+
+#abort:disabled {
+	background-color: #ccc;
+}
+
+.row_upload_progress, .row_upload_progress_error {
+	width: 0;
+	background-color: #34BB62;
+	height: 3px;
+}
+
+.row_upload_progress_error {
+	background-color: #FF6347;
+}
+</style>
+<script type="text/javascript" src="chunk-uploader.js"></script>
+</head>
+<body>
+	<div
+		style="position: relative; width: 50%; margin-left: auto; margin-right: auto;">
+		<fieldset style="display: inline-block;">
+			<legend>Options</legend>
+			<table>
+				<tr>
+					<td><label for="raw_post">Send raw post</label></td>
+					<td>:</td>
+					<td><input type="checkbox" id="raw_post"></td>
+				</tr>
+				<tr>
+					<td><label for="max_chunk_size">Max. chunk size</label></td>
+					<td>:</td>
+					<td><input type="number" value="1048576" id="max_chunk_size"> bytes</td>
+				</tr>
+				<tr>
+					<td><label>Max parallel chunks</label></td>
+					<td>:</td>
+					<td><input id="max_parallel_chunks" type="number" value="10"> requests</td>
+				</tr>
+				<tr>
+					<td><label>Chunk send interval</label></td>
+					<td>:</td>
+					<td><input id="send_interval" type="number" value="20"> ms</td>
+				</tr>
+			</table>
+		</fieldset>
+		<div>
+			<input type="file" id="file" onchange="upload_file(this.files[0]);"> <input
+				type="button" id="abort" disabled value="Abort"
+				onclick="if(confirm('Are you sure?'))chunk_uploader.abort();">
+		</div>
+	</div>
+	<div
+		style="position: relative; width: 50%; margin-left: auto; margin-right: auto;">
+		<div
+			style="border: 1px solid #ccc; width: 100%; height: 30px; display: block; background-color: #EEE">
+			<div id="status"
+				style="position: absolute; width: 100%; text-align: center; margin-top: 5px;"></div>
+			<div id="progress_bar"
+				style="width: 0; height: 100%; background-color: #00adee; text-align: center;"></div>
+		</div>
+		<fieldset id="transfer_result"
+			style="display: none; border: 1px solid #ccc; border-radius: 5px">
+
+			<legend>Transfer result</legend>
+			<table style="text-align: left">
+				<tr>
+					<th>Client file size</th>
+					<td>:</td>
+					<td id="client_file_size"></td>
+				</tr>
+				<tr>
+					<th>Server sent bytes</th>
+					<td>:</td>
+					<td id="server_sent_bytes"></td>
+				</tr>
+				<tr>
+					<th>Elapsed time</th>
+					<td>:</td>
+					<td id="elapsed_time"></td>
+				</tr>
+				<tr>
+					<th>Remote file name</th>
+					<td>:</td>
+					<td id="remote_file_name"></td>
+				</tr>
+				<tr>
+					<th>Remote file path</th>
+					<td>:</td>
+					<td id="remote_file_path"></td>
+				</tr>
+				<tr>
+					<th>Remote file size</th>
+					<td>:</td>
+					<td id="remote_file_size"></td>
+				</tr>
+				<tr>
+					<th>Remote file chunks</th>
+					<td>:</td>
+					<td id="remote_file_chunks"></td>
+				</tr>
+				<tr>
+					<th>Remote file CRC32</th>
+					<td>:</td>
+					<td id="remote_file_crc"></td>
+				</tr>
+			</table>
+		</fieldset>
+	</div>
+	<script type="text/javascript">
+var p=document.getElementById('progress_bar');
+var s=document.getElementById('status');
+var b=document.getElementById('file');
+var a=document.getElementById('abort');
+
+function upload_file(file){
+	chunk_uploader.on_ready=function(response){
+		//s.innerHTML='100%';
+
+		document.getElementById('client_file_size').innerHTML=response.total+' bytes';
+		document.getElementById('server_sent_bytes').innerHTML=response.sent+' bytes';
+		document.getElementById('elapsed_time').innerHTML=response.elapsed+' sec';
+		document.getElementById('remote_file_name').innerHTML=response.file.name;
+		document.getElementById('remote_file_path').innerHTML=response.file.tmp_name;
+		document.getElementById('remote_file_size').innerHTML=response.file.size+' bytes';
+		document.getElementById('remote_file_chunks').innerHTML=response.file.chunks+' chunks of max. '+chunk_uploader.options.max_chunk_size+' bytes';
+		document.getElementById('remote_file_crc').innerHTML=response.file.crc.toString(16)+' ('+response.file.crc+')';
+
+		document.getElementById('transfer_result').style.display='inherit';
+
+	};
+
+	chunk_uploader.on_done=function(){
+		b.disabled=false;
+		a.disabled=!b.disabled;
+		p.style.backgroundColor='#13B048';
+	};
+	
+	chunk_uploader.on_error=function(object,err_type){
+		s.innerHTML=err_type+' error : '+object.message+' ('+object.code+')';
+		b.disabled=false;
+		a.disabled=!b.disabled;
+		p.style.backgroundColor='#FF6347';
+	};
+
+	chunk_uploader.on_abort=function(object){
+		s.innerHTML=object.message;
+		b.disabled=false;
+		a.disabled=!b.disabled;
+		p.style.backgroundColor='#F78C18';
+	};
+
+	chunk_uploader.on_upload_progress=function(progress){
+		p.style.width=progress.percentage+'%';
+		s.innerHTML=p.style.width+' (ETA : '+progress.eta.toHMS()+')';
+	};
+
+	chunk_uploader.options.max_chunk_size=parseInt(document.getElementById('max_chunk_size').value);
+	chunk_uploader.options.raw_post=document.getElementById('raw_post').checked;
+	chunk_uploader.options.max_parallel_chunks=parseInt(document.getElementById('max_parallel_chunks').value);
+	chunk_uploader.options.send_interval=parseInt(document.getElementById('send_interval').value);
+
+	b.disabled=true;
+	a.disabled=!b.disabled;
+	
+	chunk_uploader.upload_chunked('/upload.php',file);
+}
+window.onload=function(){window.chunk_uploader=new MyChunkUploader();};
+	</script>
+</body>
+</html>

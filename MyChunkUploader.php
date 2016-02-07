@@ -366,6 +366,7 @@ class MyChunkUploader {
 		
 		$this->_cleanup_parts();
 		
+		file_put_contents('/tmp/error', print_r($error,1).PHP_EOL,8);
 		$this->_die( $error );
 	}
 

@@ -245,7 +245,7 @@ class MyChunkUploader {
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
 		
 		file_put_contents( '/tmp/headers', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
-		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ) . PHP_EOL, 8 );
+		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ).'=>'.$this->_abort . PHP_EOL, 8 );
 	}
 
 	private function _get_header_value( $header_name ) {

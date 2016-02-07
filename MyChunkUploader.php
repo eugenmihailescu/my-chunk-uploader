@@ -243,9 +243,6 @@ class MyChunkUploader {
 		
 		// check whether this HTTP request is a abort request
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
-		
-		file_put_contents( '/tmp/headers', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
-		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ).'=>'.$this->_abort . PHP_EOL, 8 );
 	}
 
 	private function _get_header_value( $header_name ) {
@@ -340,7 +337,6 @@ class MyChunkUploader {
 	 * @param array $array
 	 */
 	private function _die( $array ) {
-		file_put_contents( '/tmp/die', print_r( $array, 1 ) . PHP_EOL, 8 );
 		die( json_encode( $array, JSON_FORCE_OBJECT ) );
 	}
 
@@ -365,7 +361,6 @@ class MyChunkUploader {
 		
 		$this->_cleanup_parts();
 		
-		file_put_contents( '/tmp/error', print_r( $error, 1 ) . PHP_EOL, 8 );
 		$this->_die( $error );
 	}
 
@@ -414,9 +409,6 @@ class MyChunkUploader {
 		}
 		
 		$this->_content_type = $this->_get_header_value( UPLOADER_TYPE_HEADER );
-		
-		// $this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
-		file_put_contents( '/tmp/eugen', $this->_abort . PHP_EOL, 8 );
 		
 		$header_error = _esc( '%s header expected' );
 		
@@ -579,7 +571,6 @@ class MyChunkUploader {
 	 */
 	public function run() {
 		if ( ! $this->may_run() ) {
-			file_put_contents( '/tmp/may_not_run', "1" . PHP_EOL, 8 );
 			return false;
 		}
 		

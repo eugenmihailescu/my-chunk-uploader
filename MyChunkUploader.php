@@ -589,7 +589,7 @@ class MyChunkUploader {
 		
 		$this->_validate_headers();
 		
-		$this->_abort && $this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
+		if($this->_abort){file_put_contents('/tmp/do_abort', 1);$this->_set_error( _esc( 'Aborted by user' ), 'UI', false );}
 		
 		// define a temporary file name that will store the chunked data
 		$tmp_filename = sprintf( '%s%s-%d-%d', $this->_tmp_dir, $this->_filename, $this->_range[1], $this->_range[2] );

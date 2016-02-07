@@ -260,6 +260,11 @@ class MyChunkUploader {
 	 * @return boolean
 	 */
 	private function _strToBool( $value ) {
+		file_put_contents( '/tmp/strtobool', print_r( $value, 1 ) . ' => ', 8 );
+		file_put_contents( 
+			'/tmp/strtobool', 
+			print_r( true == $value || 1 === preg_match( '/(true|on|1|yes)/i', $value ), 1 ) . PHP_EOL, 
+			8 );
 		return true == $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
 	}
 
@@ -366,7 +371,7 @@ class MyChunkUploader {
 		
 		$this->_cleanup_parts();
 		
-		file_put_contents('/tmp/error', print_r($error,1).PHP_EOL,8);
+		file_put_contents( '/tmp/error', print_r( $error, 1 ) . PHP_EOL, 8 );
 		$this->_die( $error );
 	}
 

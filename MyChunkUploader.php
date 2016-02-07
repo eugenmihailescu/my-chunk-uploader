@@ -246,6 +246,7 @@ class MyChunkUploader {
 		$this->_waiting = $this->_get_header_value( UPLOADER_WAIT_HEADER );
 		
 		file_put_contents( '/tmp/headers', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
+		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ) . PHP_EOL, 8 );
 	}
 
 	private function _get_header_value( $header_name ) {
@@ -416,8 +417,6 @@ class MyChunkUploader {
 		$this->_content_type = $this->_get_header_value( UPLOADER_TYPE_HEADER );
 		
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
-		
-		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ) . PHP_EOL, 8 );
 		
 		$header_error = _esc( '%s header expected' );
 		

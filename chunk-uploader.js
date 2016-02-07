@@ -324,7 +324,8 @@ function MyChunkUploader(class_signature) {
 				console.log('decrementing sent_chunks=' + sent_chunks);
 
 				var response = get_server_error(e), error = false;
-
+				console.log(response);
+				
 				// check for server status
 				if (false != response) {
 					// at this point we are sure we received an error

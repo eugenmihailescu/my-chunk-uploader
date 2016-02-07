@@ -394,9 +394,9 @@ function MyChunkUploader(class_signature) {
 		console.log('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
 
 		console.log(server_error);
-		console.log(sent_chunks+'<'+concurrent_chunks);
-		console.log(slice_start +'<'+ file.size);
-		
+		console.log(sent_chunks + '<' + concurrent_chunks);
+		console.log(slice_start + '<' + file.size);
+
 		while (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
 			// calculate the slice size
@@ -502,6 +502,7 @@ function MyChunkUploader(class_signature) {
 		server_error_code = 0;
 
 		console.log('sent_chunks=0');
+		
 		slice_start = 0;
 		chunk_count = 0;
 		sent_chunks = 0;
@@ -527,9 +528,11 @@ function MyChunkUploader(class_signature) {
 
 		var _this_ = this;
 
+		console.log('looping each ' + loop_interval + 'ms');
+
 		// create a new slice upload each 20ms
 		loop = setInterval(function() {
-			console.log('looping each '+loop_interval+'ms');
+			console.log('running within LOOP');
 			_this_.upload_slice(_this_);
 		}, loop_interval);
 	};

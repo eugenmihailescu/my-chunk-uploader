@@ -173,6 +173,7 @@ function MyChunkUploader(class_signature) {
 
 	this.create_xhr = function(headers) {
 		var xhr = new XMLHttpRequest(), i;
+		console.log(url);
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader(UPLOADER_CHUNK_SIGNATURE, true);
 		xhr.setRequestHeader(UPLOADER_RAW_POST_HEADER, this.options.raw_post);

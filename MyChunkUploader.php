@@ -585,6 +585,9 @@ class MyChunkUploader {
 		
 		$this->_validate_headers();
 		
+		if($this->_abort)
+			file_put_contents('/tmp/abort', 1);
+		
 		$this->_abort && $this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
 		
 		// define a temporary file name that will store the chunked data

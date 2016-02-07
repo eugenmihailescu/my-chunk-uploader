@@ -574,7 +574,7 @@ function MyChunkUploader(class_signature) {
 					server_error.code = xhr.status;
 				}
 
-				_this_.on_abort(server_error);
+				_this_.on_abort(this,server_error);
 			}
 		};
 

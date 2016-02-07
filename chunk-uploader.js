@@ -232,7 +232,6 @@ function MyChunkUploader(class_signature) {
 	 *         {error:{message:string,code:string},data:object} otherwise
 	 */
 	var get_server_error = function(xhr) {
-		console.log('get_server_error='+xhr.response);
 		// unknown XHR looks like app error not server error
 		if ('object' != typeof xhr) {
 			return false;

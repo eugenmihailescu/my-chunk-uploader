@@ -337,7 +337,7 @@ class MyChunkUploader {
 	 *
 	 * @param array $array
 	 */
-	private function _die( $array ) {
+	public function _die( $array ) {
 		die( json_encode( $array, JSON_FORCE_OBJECT ) );
 	}
 

@@ -531,7 +531,7 @@ function MyChunkUploader(class_signature) {
 		console.log('looping each ' + loop_interval + 'ms');
 
 		// create a new slice upload each 20ms
-		loop = setInterval(function() {
+		loop = window.setInterval(function() {
 			console.log('running within LOOP');
 			_this_.upload_slice(_this_);
 		}, loop_interval);

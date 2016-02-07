@@ -33,6 +33,7 @@
  * @id      : MyChunkUploader.php | Mon Dec 28 17:57:55 2015 +0100 | Eugen Mihailescu <eugenmihailescux@gmail.com> $
 */
 
+namespace MyChunkUploader;
 
 
 // A wrapper for looking up the $text in the current domain

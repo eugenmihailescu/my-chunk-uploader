@@ -33,8 +33,9 @@
  * @id      : upload.php | Mon Dec 28 17:57:55 2015 +0100 | Eugen Mihailescu <eugenmihailescux@gmail.com> $
 */
 
+namespace MyChunkUploader;
 
-require_once MISC_PATH . 'MyChunkUploader.php';
+require_once 'MyChunkUploader.php';
 $uploader = new MyChunkUploader();
 $uploader->run();
 ?>

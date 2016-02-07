@@ -65,8 +65,8 @@ String.prototype.crc32 = function() {
 	var crcTable = window.crcTable || (window.crcTable = makeCRCTable());
 	var crc = 0 ^ (-1);
 
-	for (var i = 0; i < str.length; i++) {
-		crc = (crc >>> 8) ^ crcTable[(crc ^ str.charCodeAt(i)) & 0xFF];
+	for (var i = 0; i < this.length; i++) {
+		crc = (crc >>> 8) ^ crcTable[(crc ^ this.charCodeAt(i)) & 0xFF];
 	}
 
 	return (crc ^ (-1)) >>> 0;

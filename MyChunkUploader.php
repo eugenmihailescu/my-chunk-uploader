@@ -578,7 +578,8 @@ class MyChunkUploader {
 	 * Process the input and save it as a chunked file
 	 */
 	public function run() {
-		if ( ! $this->_may_run ) {
+		if ( ! $this->may_run() ) {
+			file_put_contents( '/tmp/may_not_run', "1" . PHP_EOL, 8 );
 			return false;
 		}
 		

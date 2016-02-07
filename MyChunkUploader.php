@@ -585,7 +585,7 @@ class MyChunkUploader {
 		
 		$this->_validate_headers();
 		
-		file_put_contents('/tmp/headers', print_r($this->_headers,1));
+		file_put_contents('/tmp/headers', print_r($this->_headers,1).PHP_EOL,8);
 		
 		$this->_abort && $this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
 		

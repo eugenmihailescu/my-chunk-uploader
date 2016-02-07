@@ -217,10 +217,6 @@ class MyChunkUploader {
 		
 		$this->_require_nonce = false;
 		
-		$this->_abort = false;
-		
-		$this->_waiting = false;
-		
 		$this->_content_type = false; // ie. unknown
 		
 		if ( defined( __NAMESPACE__.'\\UPLOADER_VERIFY_NONCE_CALLBACK' ) && is_callable( UPLOADER_VERIFY_NONCE_CALLBACK ) ) {
@@ -244,7 +240,6 @@ class MyChunkUploader {
 		
 		// check whether this HTTP request sent as a response to the merge_parts function that asked the caller to wait 1sec
 		$this->_waiting = $this->_get_header_value( UPLOADER_WAIT_HEADER );
-		
 		
 		// check whether this HTTP request is a abort request
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
@@ -406,8 +401,6 @@ class MyChunkUploader {
 	 * check if the request has sent some headers
 	 */
 	private function _validate_headers() {
-		file_put_contents('/tmp/eugen', $this->_get_header_value( UPLOADER_ABORT_HEADER ).PHP_EOL,8);
-		file_put_contents('/tmp/eugen', print_r($this->_headers,1).PHP_EOL,8);
 		// check the security nonce
 		if ( is_callable( $this->on_chk_nonce ) ) {
 			$nonce = $this->_get_header_value( UPLOADER_NONCE_HEADER );
@@ -422,10 +415,9 @@ class MyChunkUploader {
 		
 		$this->_content_type = $this->_get_header_value( UPLOADER_TYPE_HEADER );
 		
+		// $this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
+		file_put_contents( '/tmp/eugen', $this->_abort . PHP_EOL, 8 );
 		
-		//$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
-		file_put_contents('/tmp/eugen', $this->_abort.PHP_EOL,8);
-				
 		$header_error = _esc( '%s header expected' );
 		
 		// we expect a header that provides the uploaded file name

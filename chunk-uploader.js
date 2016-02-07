@@ -395,7 +395,8 @@ function MyChunkUploader(class_signature) {
 		var concurrent_chunks = 'undefined' != typeof _this_.options.max_parallel_chunks && _this_.options.max_parallel_chunks ? _this_.options.max_parallel_chunks : 10;
 
 		console.log('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
-		console.log('server_error='+server_error);
+		console.log('server_error=');
+		console.log(server_error);
 		console.log('slice_start='+slice_start + '<file.size=' + file.size);
 
 		while (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {

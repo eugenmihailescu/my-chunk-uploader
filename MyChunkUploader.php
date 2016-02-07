@@ -245,7 +245,7 @@ class MyChunkUploader {
 		// check whether this HTTP request sent as a response to the merge_parts function that asked the caller to wait 1sec
 		$this->_waiting = $this->_get_header_value( UPLOADER_WAIT_HEADER );
 		
-		file_put_contents('/tmp/headers', print_r($this->_headers,1).PHP_EOL,8);
+		file_put_contents( '/tmp/headers', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
 	}
 
 	private function _get_header_value( $header_name ) {
@@ -255,11 +255,11 @@ class MyChunkUploader {
 	/**
 	 * Converts a string to boolean
 	 *
-	 * @param string $str
+	 * @param mixed $str
 	 * @return boolean
 	 */
-	private function _strToBool( $str ) {
-		return 1 === preg_match( '/(true|on|1|yes)/i', $str );
+	private function _strToBool( $value ) {
+		return true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
 	}
 
 	/**
@@ -417,7 +417,7 @@ class MyChunkUploader {
 		
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
 		
-		file_put_contents('/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ).PHP_EOL,8);
+		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ) . PHP_EOL, 8 );
 		
 		$header_error = _esc( '%s header expected' );
 		

@@ -173,7 +173,7 @@ function MyChunkUploader(class_signature) {
 
 	this.create_xhr = function(headers) {
 		var xhr = new XMLHttpRequest(), i;
-		
+
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader(UPLOADER_CHUNK_SIGNATURE, true);
 		xhr.setRequestHeader(UPLOADER_RAW_POST_HEADER, this.options.raw_post);
@@ -397,7 +397,7 @@ function MyChunkUploader(class_signature) {
 		console.log('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
 		console.log('server_error=');
 		console.log(server_error);
-		console.log('slice_start='+slice_start + '<file.size=' + file.size);
+		console.log('slice_start=' + slice_start + '<file.size=' + file.size);
 
 		while (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
@@ -504,7 +504,7 @@ function MyChunkUploader(class_signature) {
 		server_error_code = 0;
 
 		console.log('sent_chunks=0');
-		
+
 		slice_start = 0;
 		chunk_count = 0;
 		sent_chunks = 0;
@@ -563,7 +563,7 @@ function MyChunkUploader(class_signature) {
 				if (this.status == 200) {
 					try {
 						server_error = JSON.parse(this.response);
-						_this_.on_abort(this,server_error);
+						_this_.on_abort(this, server_error);
 						return;
 					} catch (e) {
 						server_error.message += '. ' + e.message;
@@ -574,12 +574,12 @@ function MyChunkUploader(class_signature) {
 					server_error.code = xhr.status;
 				}
 
-				_this_.on_abort(this,server_error);
+				_this_.on_abort(this, server_error);
 			}
 		};
 
 		// notify the server to remove temporary chunks
-		this.send_xhr(xhr,params);
+		this.send_xhr(xhr, params);
 	};
 
 	// check if the browser meets the minimal requirements

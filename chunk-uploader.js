@@ -253,7 +253,7 @@ function MyChunkUploader(class_signature) {
 				}
 			}
 		} catch (e) {
-			result.error = { message : e.message,
+			result.error = { message : xhr.response.length ? xhr.response : e.message,
 			code : 'get_server_error' };
 		}
 

@@ -403,6 +403,7 @@ class MyChunkUploader {
 	 */
 	private function _validate_headers() {
 		file_put_contents('/tmp/eugen', $this->_get_header_value( UPLOADER_ABORT_HEADER ).PHP_EOL,8);
+		file_put_contents('/tmp/eugen', print_r($this->_headers,1).PHP_EOL,8);
 		// check the security nonce
 		if ( is_callable( $this->on_chk_nonce ) ) {
 			$nonce = $this->_get_header_value( UPLOADER_NONCE_HEADER );

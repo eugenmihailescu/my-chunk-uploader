@@ -260,7 +260,7 @@ class MyChunkUploader {
 	 * @return boolean
 	 */
 	private function _strToBool( $value ) {
-		return true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
+		return true == $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
 	}
 
 	/**
@@ -589,7 +589,10 @@ class MyChunkUploader {
 		
 		$this->_validate_headers();
 		
-		if($this->_abort){file_put_contents('/tmp/do_abort', 1);$this->_set_error( _esc( 'Aborted by user' ), 'UI', false );}
+		if ( $this->_abort ) {
+			file_put_contents( '/tmp/do_abort', 1 );
+			$this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
+		}
 		
 		// define a temporary file name that will store the chunked data
 		$tmp_filename = sprintf( '%s%s-%d-%d', $this->_tmp_dir, $this->_filename, $this->_range[1], $this->_range[2] );

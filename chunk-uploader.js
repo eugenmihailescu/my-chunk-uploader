@@ -393,6 +393,10 @@ function MyChunkUploader(class_signature) {
 
 		console.log('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
 
+		console.log(server_error);
+		console.log(sent_chunks+'<'+concurrent_chunks);
+		console.log(slice_start +'<'+ file.size);
+		
 		while (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
 			// calculate the slice size

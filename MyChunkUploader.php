@@ -260,11 +260,6 @@ class MyChunkUploader {
 	 * @return boolean
 	 */
 	private function _strToBool( $value ) {
-		file_put_contents( '/tmp/strtobool', print_r( $value, 1 ) . ' => ', 8 );
-		file_put_contents( 
-			'/tmp/strtobool', 
-			print_r( true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value ), 1 ) . PHP_EOL, 
-			8 );
 		return true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
 	}
 
@@ -422,8 +417,10 @@ class MyChunkUploader {
 		
 		$this->_content_type = $this->_get_header_value( UPLOADER_TYPE_HEADER );
 		
+		file_put_contents('/tmp/eugen', $this->_get_header_value( UPLOADER_ABORT_HEADER ).PHP_EOL,8);
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
-		
+		file_put_contents('/tmp/eugen', $this->_abort.PHP_EOL,8);
+				
 		$header_error = _esc( '%s header expected' );
 		
 		// we expect a header that provides the uploaded file name

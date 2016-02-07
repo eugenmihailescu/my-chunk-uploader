@@ -263,9 +263,9 @@ class MyChunkUploader {
 		file_put_contents( '/tmp/strtobool', print_r( $value, 1 ) . ' => ', 8 );
 		file_put_contents( 
 			'/tmp/strtobool', 
-			print_r( true == $value || 1 === preg_match( '/(true|on|1|yes)/i', $value ), 1 ) . PHP_EOL, 
+			print_r( true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value ), 1 ) . PHP_EOL, 
 			8 );
-		return true == $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
+		return true === $value || 1 === preg_match( '/(true|on|1|yes)/i', $value );
 	}
 
 	/**

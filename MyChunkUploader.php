@@ -417,7 +417,7 @@ class MyChunkUploader {
 		
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
 		
-		$this->_abort && file_put_contents('/tmp/abort', 1);
+		file_put_contents('/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ).PHP_EOL,8);
 		
 		$header_error = _esc( '%s header expected' );
 		

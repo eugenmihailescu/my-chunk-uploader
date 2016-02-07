@@ -358,7 +358,11 @@ class MyChunkUploader {
 		
 		empty( $message ) && $message = _esc( 'unknown' );
 		
-		$error = array( 'success' => false, 'message' => $message, 'code' => $code );
+		$error = array( 
+			'success' => false, 
+			'message' => $message, 
+			'code' => $code, 
+			'json' => array( 'name' => $this->_filename ) );
 		
 		$this->_cleanup_parts();
 		
@@ -664,9 +668,10 @@ class MyChunkUploader {
 		return $this->_strToBool( $this->_get_header_value( UPLOADER_RAW_POST_HEADER ) );
 	}
 
-	public function is_aborting(){
+	public function is_aborting() {
 		return $this->_abort;
 	}
+
 	/**
 	 * Returns the chunk range within the current request.
 	 * The range elements : 1st element is the range start, 2nd is the range end and 3rd is the total filesize

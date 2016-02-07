@@ -548,7 +548,8 @@ function MyChunkUploader(class_signature) {
 
 		// set the default server_error such that the upload loop exits
 		server_error = { message : 'Aborted by user',
-		code : 'UI' };
+		code : 'UI',
+		json : { name : file.name } };
 
 		var headers = {};
 		headers[UPLOADER_ABORT_HEADER] = true;

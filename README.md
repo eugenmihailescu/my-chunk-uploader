@@ -13,6 +13,12 @@ To implement this functionality is straightforward:
 - the `upload.php` receives the previous POST requests and forwards them to a MyChunkUploader PHP instance (see `MyChunkUploader.php`)
 - the MyChunkUploader PHP instance saves each chunk to a temporary file; when all chunks are received the temporary/chunked files are concatenated resulting the final uploaded file.
 
+REQUIREMENTS
+============
+
+- front-end : IE10+, FF13+, Chrome10+, Opera12+
+- back-end  : PHP 5.3+
+
 MyChunkUploader JavaScript class
 ================================
 

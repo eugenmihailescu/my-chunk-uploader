@@ -417,6 +417,8 @@ class MyChunkUploader {
 		
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
 		
+		$this->_abort && file_put_contents('/tmp/abort', 1);
+		
 		$header_error = _esc( '%s header expected' );
 		
 		// we expect a header that provides the uploaded file name

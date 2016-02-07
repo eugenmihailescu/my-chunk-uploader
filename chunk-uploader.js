@@ -173,7 +173,7 @@ function MyChunkUploader(class_signature) {
 
 	this.create_xhr = function(headers) {
 		var xhr = new XMLHttpRequest(), i;
-		console.log(url);
+		
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader(UPLOADER_CHUNK_SIGNATURE, true);
 		xhr.setRequestHeader(UPLOADER_RAW_POST_HEADER, this.options.raw_post);
@@ -195,6 +195,9 @@ function MyChunkUploader(class_signature) {
 		if ('object' != typeof xhr)
 			return false;
 
+		console.log('send_xhr');
+
+		// raw post
 		if (true === this.options.raw_post || 'object' != typeof object) {
 			if ('object' == typeof object)
 				xhr.send(object.data);
@@ -213,7 +216,6 @@ function MyChunkUploader(class_signature) {
 					if (params.hasOwnProperty(i))
 						formData.append(i, params[i]);
 
-			console.log('send_xhr');
 			xhr.send(formData);
 
 			delete formData;
@@ -539,7 +541,7 @@ function MyChunkUploader(class_signature) {
 	/**
 	 * Abort the current upload (if currently running)
 	 */
-	this.abort = function() {
+	this.abort = function(params) {
 		if (!is_running)
 			return;
 
@@ -576,7 +578,7 @@ function MyChunkUploader(class_signature) {
 		};
 
 		// notify the server to remove temporary chunks
-		this.send_xhr(xhr);
+		this.send_xhr(xhr,params);
 	};
 
 	// check if the browser meets the minimal requirements

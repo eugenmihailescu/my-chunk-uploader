@@ -244,6 +244,8 @@ class MyChunkUploader {
 		
 		// check whether this HTTP request sent as a response to the merge_parts function that asked the caller to wait 1sec
 		$this->_waiting = $this->_get_header_value( UPLOADER_WAIT_HEADER );
+		
+		file_put_contents('/tmp/headers', print_r($this->_headers,1).PHP_EOL,8);
 	}
 
 	private function _get_header_value( $header_name ) {
@@ -584,8 +586,6 @@ class MyChunkUploader {
 		};
 		
 		$this->_validate_headers();
-		
-		file_put_contents('/tmp/headers', print_r($this->_headers,1).PHP_EOL,8);
 		
 		$this->_abort && $this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
 		

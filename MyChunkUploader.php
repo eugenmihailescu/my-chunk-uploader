@@ -245,6 +245,10 @@ class MyChunkUploader {
 		// check whether this HTTP request sent as a response to the merge_parts function that asked the caller to wait 1sec
 		$this->_waiting = $this->_get_header_value( UPLOADER_WAIT_HEADER );
 		
+		
+		// check whether this HTTP request is a abort request
+		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
+		
 		file_put_contents( '/tmp/headers', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
 		file_put_contents( '/tmp/abort', $this->_get_header_value( UPLOADER_ABORT_HEADER ) . PHP_EOL, 8 );
 	}
@@ -419,7 +423,7 @@ class MyChunkUploader {
 		$this->_content_type = $this->_get_header_value( UPLOADER_TYPE_HEADER );
 		
 		
-		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
+		//$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
 		file_put_contents('/tmp/eugen', $this->_abort.PHP_EOL,8);
 				
 		$header_error = _esc( '%s header expected' );

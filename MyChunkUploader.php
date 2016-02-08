@@ -507,7 +507,7 @@ class MyChunkUploader {
 		
 		$parts = glob( $pattern );
 		
-		file_put_contents('/tmp/clean_up', print_r($parts,1).PHP_EOL,8);
+		
 		
 		$sort && usort( 
 			$parts, 
@@ -518,6 +518,8 @@ class MyChunkUploader {
 				else
 					return ( $a < $b ? - 1 : 1 ) * ( $desc ? - 1 : 1 );
 			} );
+		
+		file_put_contents('/tmp/clean_up', print_r($parts,1).PHP_EOL,8);
 		
 		return $parts;
 	}

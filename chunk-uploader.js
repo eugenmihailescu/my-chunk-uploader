@@ -243,7 +243,7 @@ function MyChunkUploader(class_signature) {
 		// parse the server response
 		try {
 			var json = JSON.parse(xhr.response);
-			
+
 			result.data = json;
 			if (json.hasOwnProperty('success')) {
 				if (!json.success) {
@@ -326,7 +326,7 @@ function MyChunkUploader(class_signature) {
 
 				var response = get_server_error(e), error = false;
 				console.log(response);
-				
+
 				// check for server status
 				if (false != response) {
 					// at this point we are sure we received an error
@@ -565,8 +565,9 @@ function MyChunkUploader(class_signature) {
 			if (this.readyState == 4 && null !== _this_.on_abort) {
 				if (this.status == 200) {
 					try {
-						server_error = JSON.parse(this.response);
-						_this_.on_abort(this, server_error);
+						_server_error = JSON.parse(this.response);
+						if (Object.keys(_server_error).length)// if not empty
+							_this_.on_abort(this, _server_error);
 						return;
 					} catch (e) {
 						server_error.message += '. ' + e.message;

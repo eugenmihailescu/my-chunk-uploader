@@ -328,12 +328,13 @@ class MyChunkUploader {
 	/**
 	 * Clean-up the temporary parts files in case of error|abort
 	 */
-	public function _cleanup_parts() {
+	public function _cleanup_parts( $filename = false ) {
+		$filename || $filename = $this->_filename;
 		file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
-		file_put_contents( '/tmp/clean_up', $this->_filename . PHP_EOL, 8 );
+		file_put_contents( '/tmp/clean_up', $filename . PHP_EOL, 8 );
 		
-		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )
-			foreach ( $this->_get_parts( false ) as $chunk_filename ) {
+		if ( is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
+			foreach ( $this->_get_parts( false, false, $filename ) as $chunk_filename ) {
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
@@ -498,14 +499,15 @@ class MyChunkUploader {
 	/**
 	 * Get the chunked files
 	 *
+	 * @param bool $sort When true returns the list sorted, unsorted otherwise
+	 * @param bool $desc When true and sorted returns the list sorted descendent, otherwise ascendent
+	 * @param string $filename When not false use this filename, otherwise the instance filename
 	 * @return array
 	 */
-	private function _get_parts( $sort = true, $desc = false ) {
-		$pattern = sprintf( '%s%s-*-*', $this->_tmp_dir, $this->_filename );
+	private function _get_parts( $sort = true, $desc = false, $filename = false ) {
+		$filename || $filename = $this->_filename;
+		$pattern = sprintf( '%s%s-*-*', $this->_tmp_dir, $filename );
 		file_put_contents( '/tmp/clean_up', $pattern . PHP_EOL, 8 );
-		
-		while ( $this->has_not_received_parts() )
-			sleep( 1 );
 		
 		$parts = glob( $pattern );
 		

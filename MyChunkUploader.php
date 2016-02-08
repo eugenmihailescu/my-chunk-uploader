@@ -378,23 +378,23 @@ class MyChunkUploader {
 	 * @param string $write_mode The output stream type access
 	 */
 	private function _copy_file( $input_file, $output_file, $sufix = '', $write_mode = 'wb' ) {
-		$fr = fopen( $input_file, 'rb' );
+		$fr = @fopen( $input_file, 'rb' );
 		( false !== $fr ) || $this->_set_error( null, "3.4$sufix" );
 		
-		$fw = fopen( $output_file, $write_mode );
+		$fw = @fopen( $output_file, $write_mode );
 		( false !== $fw ) || $this->_set_error( false, "3.5$sufix" );
 		
 		$written = 0;
-		while ( ! feof( $fr ) && ( $buffer = fread( $fr, 4096 ) ) && ( false !== $written ) ) {
-			$written = fwrite( $fw, $buffer );
+		while ( ! feof( $fr ) && ( $buffer = @fread( $fr, 4096 ) ) && ( false !== $written ) ) {
+			$written = @fwrite( $fw, $buffer );
 		}
 		
 		( false !== $buffer ) || $this->_set_error( null, "3.6$sufix" );
 		( false !== $written ) || $this->_set_error( null, "3.7$sufix" );
 		
-		fclose( $fr ) || $this->_set_error( null, "3.8$sufix" );
+		@fclose( $fr ) || $this->_set_error( null, "3.8$sufix" );
 		
-		fclose( $fw ) || $this->_set_error( null, "3.9$sufix" );
+		@fclose( $fw ) || $this->_set_error( null, "3.9$sufix" );
 	}
 
 	/**

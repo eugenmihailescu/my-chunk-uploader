@@ -401,7 +401,7 @@ function MyChunkUploader(class_signature) {
 		console.log(server_error);
 		console.log('slice_start=' + slice_start + '<file.size=' + file.size);
 
-		while (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
+		if (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
 			// calculate the slice size
 			if (slice_start + _this_.options.max_chunk_size > file.size)

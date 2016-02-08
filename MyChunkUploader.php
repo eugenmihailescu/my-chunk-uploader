@@ -351,7 +351,7 @@ class MyChunkUploader {
 	 * @param string $code The error code
 	 * @param bool $sys_error When true then the message|code are extracted from the last system error
 	 */
-	private function _set_error( $message, $code = -1, $sys_error = true ) {
+	public function _set_error( $message, $code = -1, $sys_error = true ) {
 		if ( $sys_error ) {
 			if ( $e = error_get_last() ) {
 				$message = $e['message'];

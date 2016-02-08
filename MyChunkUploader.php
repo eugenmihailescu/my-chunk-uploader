@@ -504,6 +504,9 @@ class MyChunkUploader {
 		$pattern = sprintf( '%s%s-*-*', $this->_tmp_dir, $this->_filename );
 		file_put_contents( '/tmp/clean_up', $pattern . PHP_EOL, 8 );
 		
+		while ( $this->has_not_received_parts() )
+			sleep( 1 );
+		
 		$parts = glob( $pattern );
 		
 		file_put_contents( '/tmp/clean_up', print_r( $parts, 1 ) . PHP_EOL, 8 );

@@ -334,10 +334,10 @@ class MyChunkUploader {
 		
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )
 			foreach ( $this->_get_parts( false ) as $chunk_filename ) {
-				file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
+					file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				}
 			}
 	}

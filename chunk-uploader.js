@@ -35,6 +35,9 @@
 
 
 var console_print = function(str) {
+	// return;
+	if (window.console)
+		console.log(str);
 };
 if (!window.console)
 	window.console = function() {

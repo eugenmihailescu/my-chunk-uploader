@@ -352,7 +352,7 @@ class MyChunkUploader {
 		if ( $sys_error ) {
 			if ( $e = error_get_last() ) {
 				$message = $e['message'];
-				$code = $e['type'] . ( - 1 !== $code ? '.' . $code : '' );
+				$code = $e['type'] . ( - 1 !== $code ? '-' . $code : '' );
 			}
 		}
 		

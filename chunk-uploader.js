@@ -566,9 +566,10 @@ function MyChunkUploader(class_signature) {
 				if (this.status == 200) {
 					try {
 						_server_error = JSON.parse(this.response);
-						if (Object.keys(_server_error).length)// if not empty
+						if (Object.keys(_server_error).length) {// if not empty
 							_this_.on_abort(this, _server_error);
-						return;
+							return;
+						}
 					} catch (e) {
 						server_error.message += '. ' + e.message;
 						server_error.code = 'abort';

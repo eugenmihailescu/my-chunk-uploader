@@ -565,6 +565,7 @@ function MyChunkUploader(class_signature) {
 			if (this.readyState == 4 && null !== _this_.on_abort) {
 				if (this.status == 200) {
 					try {
+						console.log('_server_error='+this.response);
 						_server_error = JSON.parse(this.response);
 						if (Object.keys(_server_error).length) {// if not empty
 							_this_.on_abort(this, _server_error);

@@ -327,8 +327,7 @@ class MyChunkUploader {
 	 * Clean-up the temporary parts files in case of error|abort
 	 */
 	public function _cleanup_parts() {
-		file_put_contents('/tmp/clean_up', print_r($this->_get_parts( false ),1).PHP_EOL);
-		file_put_contents('/tmp/clean_up', $this->_tmp_dir.PHP_EOL,8);
+		file_put_contents('/tmp/clean_up', $this->_tmp_dir.PHP_EOL);
 		file_put_contents('/tmp/clean_up', $this->_filename.PHP_EOL,8);
 		
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )

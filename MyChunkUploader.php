@@ -327,15 +327,17 @@ class MyChunkUploader {
 	 * Clean-up the temporary parts files in case of error|abort
 	 */
 	public function _cleanup_parts() {
-		file_put_contents('/tmp/clean_up', $this->_tmp_dir.PHP_EOL);
-		file_put_contents('/tmp/clean_up', $this->_filename.PHP_EOL,8);
+		file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
+		file_put_contents( '/tmp/clean_up', $this->_filename . PHP_EOL, 8 );
 		
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )
-			foreach ( $this->_get_parts( false ) as $chunk_filename )
+			foreach ( $this->_get_parts( false ) as $chunk_filename ) {
+				file_put_contents('/tmp/clean_up', 'XXX:'.$chunk_filename.PHP_EOL,8);
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
 				}
+			}
 	}
 
 	/**
@@ -502,11 +504,9 @@ class MyChunkUploader {
 	 */
 	private function _get_parts( $sort = true, $desc = false ) {
 		$pattern = sprintf( '%s%s-*-*', $this->_tmp_dir, $this->_filename );
-		file_put_contents('/tmp/clean_up', $pattern.PHP_EOL,8);
+		file_put_contents( '/tmp/clean_up', $pattern . PHP_EOL, 8 );
 		
 		$parts = glob( $pattern );
-		
-		
 		
 		$sort && usort( 
 			$parts, 
@@ -518,7 +518,7 @@ class MyChunkUploader {
 					return ( $a < $b ? - 1 : 1 ) * ( $desc ? - 1 : 1 );
 			} );
 		
-		file_put_contents('/tmp/clean_up', print_r($parts,1).PHP_EOL,8);
+		file_put_contents( '/tmp/clean_up', print_r( $parts, 1 ) . PHP_EOL, 8 );
 		
 		return $parts;
 	}

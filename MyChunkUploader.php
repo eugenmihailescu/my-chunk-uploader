@@ -244,6 +244,8 @@ class MyChunkUploader {
 		
 		// check whether this HTTP request is a abort request
 		$this->_abort = $this->_strToBool( $this->_get_header_value( UPLOADER_ABORT_HEADER ) );
+		
+		$this->_filename = $this->get_filename();
 	}
 
 	private function _get_header_value( $header_name ) {
@@ -332,7 +334,7 @@ class MyChunkUploader {
 		
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )
 			foreach ( $this->_get_parts( false ) as $chunk_filename ) {
-				file_put_contents('/tmp/clean_up', 'XXX:'.$chunk_filename.PHP_EOL,8);
+				file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
@@ -425,10 +427,6 @@ class MyChunkUploader {
 		
 		$header_error = _esc( '%s header expected' );
 		
-		// we expect a header that provides the uploaded file name
-		$filename_pattern = '/filename="(.+)"/'; // http://tools.ietf.org/html/rfc2183
-		
-		$this->_filename = $this->get_filename();
 		if ( $this->_filename ) {
 			
 			// overwrite the old file

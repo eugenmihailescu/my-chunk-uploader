@@ -330,15 +330,15 @@ class MyChunkUploader {
 	 */
 	public function _cleanup_parts( $filename = false ) {
 		$filename || $filename = $this->_filename;
-		file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
-		file_put_contents( '/tmp/clean_up', $filename . PHP_EOL, 8 );
+// 		file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
+// 		file_put_contents( '/tmp/clean_up', $filename . PHP_EOL, 8 );
 		
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
 			foreach ( $this->_get_parts( false, false, $filename ) as $chunk_filename ) {
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
-					file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
+// 					file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				}
 			}
 	}
@@ -507,11 +507,11 @@ class MyChunkUploader {
 	private function _get_parts( $sort = true, $desc = false, $filename = false ) {
 		$filename || $filename = $this->_filename;
 		$pattern = sprintf( '%s%s-*-*', $this->_tmp_dir, $filename );
-		file_put_contents( '/tmp/clean_up', $pattern . PHP_EOL, 8 );
+// 		file_put_contents( '/tmp/clean_up', $pattern . PHP_EOL, 8 );
 		
 		$parts = glob( $pattern );
 		
-		file_put_contents( '/tmp/clean_up', print_r( $parts, 1 ) . PHP_EOL, 8 );
+// 		file_put_contents( '/tmp/clean_up', print_r( $parts, 1 ) . PHP_EOL, 8 );
 		
 		$sort && usort( 
 			$parts, 
@@ -538,7 +538,7 @@ class MyChunkUploader {
 		// to not get finished; once at least one not finished part is detected the function will return
 		$parts = $this->_get_parts( true, true );
 		
-		file_put_contents( '/tmp/parts', print_r( $parts, 1 ) . PHP_EOL, 8 );
+// 		file_put_contents( '/tmp/parts', print_r( $parts, 1 ) . PHP_EOL, 8 );
 		
 		$get_part_by_offset = function ( $to ) use(&$parts ) {
 			foreach ( $parts as $filename )
@@ -560,7 +560,7 @@ class MyChunkUploader {
 				while ( false != ( $from = ( $get_part_by_offset( $from - 1 ) ) ) )
 					;
 			
-			file_put_contents( '/tmp/parts', 'has not received parts=' . ( '0' === $from ? 0 : 1 ) . PHP_EOL, 8 );
+// 			file_put_contents( '/tmp/parts', 'has not received parts=' . ( '0' === $from ? 0 : 1 ) . PHP_EOL, 8 );
 			return '0' === $from ? 0 : 1;
 		}
 		return false;
@@ -600,7 +600,7 @@ class MyChunkUploader {
 		$this->_validate_headers();
 		
 		if ( $this->_abort ) {
-			file_put_contents( '/tmp/do_abort', 1 );
+// 			file_put_contents( '/tmp/do_abort', 1 );
 			$this->_set_error( _esc( 'Aborted by user' ), 'UI', false );
 		}
 		
@@ -628,7 +628,7 @@ class MyChunkUploader {
 		$this->_waiting || $this->_copy_file( $chunk_filename, $tmp_filename, 'chunk' );
 		
 		// when the last range is completed then concatenat the chunk files
-		file_put_contents( '/tmp/request', 'checking tail...' . print_r( $this->_range, 1 ) . PHP_EOL, 8 );
+// 		file_put_contents( '/tmp/request', 'checking tail...' . print_r( $this->_range, 1 ) . PHP_EOL, 8 );
 		if ( ( $this->_range[2] + 1 == $this->_range[3] ) ) {
 			if ( $chunks = $this->_merge_files() ) {
 				$response = array( 

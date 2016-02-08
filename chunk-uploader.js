@@ -35,7 +35,7 @@
 
 
 var console_print = function(str) {
-	// return;
+	// return;// comment this to enable debug messages
 	if (window.console)
 		console.log(str);
 };
@@ -279,7 +279,6 @@ function MyChunkUploader(class_signature) {
 		is_running = false;
 		if (null !== this.on_error) {
 			console.print('set_server_error');
-			// console.print(server_error);
 			server_error.success = false;
 			if (server_error.hasOwnProperty('json'))
 				server_error.json.name = file.name;
@@ -300,7 +299,6 @@ function MyChunkUploader(class_signature) {
 	this.check_is_done = function(xhr, obj) {
 		var result = false;
 		console.print('check_is_done');
-		// console.print(obj);
 		if (obj.hasOwnProperty('done') && obj.done) {
 			if ((file.size - sent_bytes > 0))
 				result = { message : 'Upload of ' + file.name + ' failed (sent only ' + sent_bytes + ' out of ' + file.size + ' bytes)',
@@ -322,7 +320,6 @@ function MyChunkUploader(class_signature) {
 		if (!is_running || server_error) {
 			// discard subsequent responses
 			console.print('discard subsequent onreadystatechange');
-			// console.print(this);
 			return;
 		}
 
@@ -332,7 +329,6 @@ function MyChunkUploader(class_signature) {
 				console.print('onreadystatechange');
 				console.print(this);
 				console.print(e.response);
-				// console.print(this);
 
 				sent_chunks--;// decrement the queue
 				console.print('decrementing sent_chunks=' + sent_chunks);

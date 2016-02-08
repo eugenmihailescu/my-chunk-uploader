@@ -323,7 +323,10 @@ class MyChunkUploader {
 		return $filename;
 	}
 
-	private function _cleanup_parts() {
+	/**
+	 * Clean-up the temporary parts files in case of error|abort
+	 */
+	public function _cleanup_parts() {
 		if ( is_dir( $this->_tmp_dir ) && ! empty( $this->_filename ) )
 			foreach ( $this->_get_parts( false ) as $chunk_filename )
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&

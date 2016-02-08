@@ -33,6 +33,16 @@
 */
 
 
+
+var console_print = function(str) {
+};
+if (!window.console)
+	window.console = function() {
+		return { print : console_print };
+	};
+else
+	window.console.print = console_print;
+
 Date.now = Date.now || function() {
 	return +new Date;
 };
@@ -195,7 +205,7 @@ function MyChunkUploader(class_signature) {
 		if ('object' != typeof xhr)
 			return false;
 
-		console.log('send_xhr');
+		console.print('send_xhr');
 
 		// raw post
 		if (true === this.options.raw_post || 'object' != typeof object) {
@@ -265,8 +275,8 @@ function MyChunkUploader(class_signature) {
 		server_error = error;
 		is_running = false;
 		if (null !== this.on_error) {
-			console.log('set_server_error');
-			// console.log(server_error);
+			console.print('set_server_error');
+			// console.print(server_error);
 			server_error.success = false;
 			if (server_error.hasOwnProperty('json'))
 				server_error.json.name = file.name;
@@ -274,7 +284,7 @@ function MyChunkUploader(class_signature) {
 				server_error.json = { name : file.name };
 			this.on_error(xhr, server_error, 'server');
 		} else
-			console.log('Server error : ' + server_error.message + ' (' + server_error.code + ')');
+			console.print('Server error : ' + server_error.message + ' (' + server_error.code + ')');
 	};
 
 	/**
@@ -286,14 +296,14 @@ function MyChunkUploader(class_signature) {
 	 */
 	this.check_is_done = function(xhr, obj) {
 		var result = false;
-		console.log('check_is_done');
-		// console.log(obj);
+		console.print('check_is_done');
+		// console.print(obj);
 		if (obj.hasOwnProperty('done') && obj.done) {
 			if ((file.size - sent_bytes > 0))
 				result = { message : 'Upload of ' + file.name + ' failed (sent only ' + sent_bytes + ' out of ' + file.size + ' bytes)',
 				code : 'incomplete' };
 			else {
-				console.log('is_done says: is ddddddoooooooooooooooonnnneeee');
+				console.print('is_done says: is ddddddoooooooooooooooonnnneeee');
 				if (null !== this.on_done) {
 					result = true;
 					this.on_done(xhr, start_time);
@@ -308,24 +318,24 @@ function MyChunkUploader(class_signature) {
 	this.onreadystatechange = function(e) {
 		if (!is_running || server_error) {
 			// discard subsequent responses
-			console.log('discard subsequent onreadystatechange');
-			// console.log(this);
+			console.print('discard subsequent onreadystatechange');
+			// console.print(this);
 			return;
 		}
 
 		if (e.readyState == 4) { // if POST DONE
 			if (e.status == 200) {// on success POST request
 
-				console.log('onreadystatechange');
-				console.log(this);
-				console.log(e.response);
-				// console.log(this);
+				console.print('onreadystatechange');
+				console.print(this);
+				console.print(e.response);
+				// console.print(this);
 
 				sent_chunks--;// decrement the queue
-				console.log('decrementing sent_chunks=' + sent_chunks);
+				console.print('decrementing sent_chunks=' + sent_chunks);
 
 				var response = get_server_error(e), error = false;
-				console.log(response);
+				console.print(response);
 
 				// check for server status
 				if (false != response) {
@@ -352,8 +362,8 @@ function MyChunkUploader(class_signature) {
 				if (false != error) {
 					this.set_server_error(e, error);
 				} else {
-					console.log('onreadystate response is not error');
-					console.log(response.data);
+					console.print('onreadystate response is not error');
+					console.print(response.data);
 					if (response.data.success && response.data.json.hasOwnProperty('wait') && response.data.json.wait) {
 						// we send a new request using the original
 						// headers after a `wait` number of seconds
@@ -361,8 +371,8 @@ function MyChunkUploader(class_signature) {
 						// merged parts info
 						var _this_ = this;
 						setTimeout(function() {
-							console.log('creating wait_xhr');
-							console.log(_this_);
+							console.print('creating wait_xhr');
+							console.print(_this_);
 							var wait_xhr = _this_.create_xhr(response.data.json.headers);
 
 							wait_xhr.onreadystatechange = function() {
@@ -396,10 +406,10 @@ function MyChunkUploader(class_signature) {
 		var slice_end;
 		var concurrent_chunks = 'undefined' != typeof _this_.options.max_parallel_chunks && _this_.options.max_parallel_chunks ? _this_.options.max_parallel_chunks : 10;
 
-		console.log('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
-		console.log('server_error=');
-		console.log(server_error);
-		console.log('slice_start=' + slice_start + '<file.size=' + file.size);
+		console.print('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
+		console.print('server_error=');
+		console.print(server_error);
+		console.print('slice_start=' + slice_start + '<file.size=' + file.size);
 
 		if (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
@@ -466,7 +476,7 @@ function MyChunkUploader(class_signature) {
 			chunk = null;
 
 			sent_chunks++;// increment the queue
-			console.log('incrementing sent_chunks=' + sent_chunks);
+			console.print('incrementing sent_chunks=' + sent_chunks);
 
 			chunk_count++;// increment the total file chunks
 
@@ -483,9 +493,9 @@ function MyChunkUploader(class_signature) {
 
 		if (server_error || slice_start >= file.size) {
 			if (server_error)
-				console.log('server_error=true => clearInterval(loop)');
+				console.print('server_error=true => clearInterval(loop)');
 			if (slice_start >= file.size)
-				console.log(slice_start + ' >= ' + file.size + ' => clearInterval(loop)');
+				console.print(slice_start + ' >= ' + file.size + ' => clearInterval(loop)');
 			clearInterval(loop);
 		}
 
@@ -505,7 +515,7 @@ function MyChunkUploader(class_signature) {
 		server_error = false;
 		server_error_code = 0;
 
-		console.log('sent_chunks=0');
+		console.print('sent_chunks=0');
 
 		slice_start = 0;
 		chunk_count = 0;
@@ -532,11 +542,11 @@ function MyChunkUploader(class_signature) {
 
 		var _this_ = this;
 
-		console.log('looping each ' + loop_interval + 'ms');
+		console.print('looping each ' + loop_interval + 'ms');
 
 		// create a new slice upload each 20ms
 		loop = window.setInterval(function() {
-			console.log('running within LOOP');
+			console.print('running within LOOP');
 			_this_.upload_slice(_this_);
 		}, loop_interval);
 	};
@@ -565,7 +575,7 @@ function MyChunkUploader(class_signature) {
 			if (this.readyState == 4 && null !== _this_.on_abort) {
 				if (this.status == 200) {
 					try {
-						console.log('_server_error='+this.response);
+						console.print('_server_error=' + this.response);
 						_server_error = JSON.parse(this.response);
 						if (Object.keys(_server_error).length) {// if not empty
 							_this_.on_abort(this, _server_error);

@@ -24,8 +24,8 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.2-11 $
- * @commit  : d84755fbdc5e1497fce834ad42d20befd5ef7925 $
+ * @version : 0.2.2-13 $
+ * @commit  : 0d3973f20d05ed5bee01f17ebf4d1d3ad946aaad $
  * @author  : Eugen Mihailescu <eugenmihailescux@gmail.com> $
  * @date    : Tue Feb 9 16:59:29 2016 +0100 $
  * @file    : MyChunkUploader.php $

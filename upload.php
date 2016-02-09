@@ -24,7 +24,7 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.2-13 $
+ * @version : 0.2.3 $
  * @commit  : 0d3973f20d05ed5bee01f17ebf4d1d3ad946aaad $
  * @author  : Eugen Mihailescu <eugenmihailescux@gmail.com> $
  * @date    : Tue Feb 9 16:59:29 2016 +0100 $

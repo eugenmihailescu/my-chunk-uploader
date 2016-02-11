@@ -23,13 +23,13 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.3 $
- * @commit  : 0d3973f20d05ed5bee01f17ebf4d1d3ad946aaad $
+ * @version : 0.2.3-1 $
+ * @commit  : aaf1f333587703ed40b4e122131f329889204460 $
  * @author  : Eugen Mihailescu <eugenmihailescux@gmail.com> $
- * @date    : Tue Feb 9 16:59:29 2016 +0100 $
+ * @date    : Thu Feb 11 09:31:19 2016 +0100 $
  * @file    : chunk-uploader.js $
  * 
- * @id      : chunk-uploader.js | Tue Feb 9 16:59:29 2016 +0100 | Eugen Mihailescu <eugenmihailescux@gmail.com> $
+ * @id      : chunk-uploader.js | Thu Feb 11 09:31:19 2016 +0100 | Eugen Mihailescu <eugenmihailescux@gmail.com> $
 */
 
 

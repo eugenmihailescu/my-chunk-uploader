@@ -235,6 +235,7 @@ class MyChunkUploader {
 		
 		// read the sent HTTP headers
 		$this->_headers = $this->array_intersect_ikey( getallheaders(), array_flip( $uploader_headers ) );
+		file_put_contents(__FILE__.'.header', print_r($this->_headers,1).PHP_EOL,8);
 		
 		// check whether this HTTP request was designed for our class; if not then don't run
 		$this->_may_run = $this->_strToBool( $this->_get_header_value( UPLOADER_CHUNK_SIGNATURE ) );

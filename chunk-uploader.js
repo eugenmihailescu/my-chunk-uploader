@@ -402,7 +402,6 @@ function MyChunkUploader(class_signature) {
 	};
 
 	this.upload_slice = function(_this_) {
-		console.log(file);
 		var slice_end;
 		var concurrent_chunks = 'undefined' != typeof _this_.options.max_parallel_chunks && _this_.options.max_parallel_chunks ? _this_.options.max_parallel_chunks : 10;
 

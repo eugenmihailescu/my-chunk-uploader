@@ -728,14 +728,14 @@ class MyChunkUploader {
 
 	public function get_filename() {
 		// we expect a header that provides the uploaded file name
-		$filename_pattern = '/filename=\\?"(.+?)\\?"/'; // http://tools.ietf.org/html/rfc2183
+		$filename_pattern = '/filename=(\\?)(["\'])(.+?)\1\2/'; // http://tools.ietf.org/html/rfc2183
 		
 		$header = $this->_get_header_value( UPLOADER_FILENAME_HEADER );
-		
+		file_put_contents( __FILE__ . '.filename', print_r( $filename_pattern, 1 ) . PHP_EOL, 8 );
 		file_put_contents( __FILE__ . '.filename', print_r( $header, 1 ) . PHP_EOL, 8 );
 		if ( $header && preg_match( $filename_pattern, $header, $matches ) ) {
 			file_put_contents( __FILE__ . '.filename', print_r( $matches, 1 ) . PHP_EOL, 8 );
-			return $this->_sanitize_file_name( $matches[1] );
+			return $this->_sanitize_file_name( $matches[3] );
 		} else
 			file_put_contents( __FILE__ . '.filename', 'no matches' . PHP_EOL, 8 );
 		return false;

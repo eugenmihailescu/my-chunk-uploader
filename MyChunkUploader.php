@@ -235,7 +235,6 @@ class MyChunkUploader {
 		
 		// read the sent HTTP headers
 		$this->_headers = $this->array_intersect_ikey( getallheaders(), array_flip( $uploader_headers ) );
-		file_put_contents( __FILE__ . '.header', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
 		
 		// check whether this HTTP request was designed for our class; if not then don't run
 		$this->_may_run = $this->_strToBool( $this->_get_header_value( UPLOADER_CHUNK_SIGNATURE ) );
@@ -268,10 +267,6 @@ class MyChunkUploader {
 	}
 
 	private function _get_header_value( $header_name ) {
-		file_put_contents( 
-			__FILE__ . 'get_hdr', 
-			'searching for ' . $header_name . ' within ' . print_r( $this->_headers, 1 ) . PHP_EOL, 
-			8 );
 		return ! empty( $this->_headers ) && isset( $this->_headers[$header_name] ) ? $this->_headers[$header_name] : false;
 	}
 
@@ -731,13 +726,9 @@ class MyChunkUploader {
 		$filename_pattern = '/filename=(\\\\?)(["\'])(.+?)\1\2/'; // http://tools.ietf.org/html/rfc2183
 		
 		$header = $this->_get_header_value( UPLOADER_FILENAME_HEADER );
-		file_put_contents( __FILE__ . '.filename', print_r( $filename_pattern, 1 ) . PHP_EOL, 8 );
-		file_put_contents( __FILE__ . '.filename', print_r( $header, 1 ) . PHP_EOL, 8 );
 		if ( $header && preg_match( $filename_pattern, $header, $matches ) ) {
-			file_put_contents( __FILE__ . '.filename', print_r( $matches, 1 ) . PHP_EOL, 8 );
 			return $this->_sanitize_file_name( $matches[3] );
-		} else
-			file_put_contents( __FILE__ . '.filename', 'no matches' . PHP_EOL, 8 );
+		}
 		return false;
 	}
 }

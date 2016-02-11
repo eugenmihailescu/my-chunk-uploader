@@ -259,7 +259,7 @@ class MyChunkUploader {
 	 */
 	private function array_intersect_ikey( $array1, $array2 ) {
 		$result = array();
-		foreach ( $array1 as $k1 => $v2 )
+		foreach ( $array1 as $k1 => $v1 )
 			foreach ( $array2 as $k2 => $v2 )
 				if ( strtolower( $k1 ) == strtolower( $k2 ) )
 					$result[$k2] = $v1;

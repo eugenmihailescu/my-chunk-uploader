@@ -234,7 +234,7 @@ class MyChunkUploader {
 		is_dir( $this->_tmp_dir ) || mk_dir( $this->_tmp_dir );
 		
 		// read the sent HTTP headers
-		$this->_headers = array_intersect_key( getallheaders(), array_flip( $uploader_headers ) );
+		$this->_headers = array_intersect_key( \getallheaders(), array_flip( $uploader_headers ) );
 		
 		// check whether this HTTP request was designed for our class; if not then don't run
 		$this->_may_run = $this->_strToBool( $this->_get_header_value( UPLOADER_CHUNK_SIGNATURE ) );

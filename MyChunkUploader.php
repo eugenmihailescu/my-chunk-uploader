@@ -235,7 +235,7 @@ class MyChunkUploader {
 		
 		// read the sent HTTP headers
 		$this->_headers = $this->array_intersect_ikey( getallheaders(), array_flip( $uploader_headers ) );
-		file_put_contents(__FILE__.'.header', print_r($this->_headers,1).PHP_EOL,8);
+		file_put_contents( __FILE__ . '.header', print_r( $this->_headers, 1 ) . PHP_EOL, 8 );
 		
 		// check whether this HTTP request was designed for our class; if not then don't run
 		$this->_may_run = $this->_strToBool( $this->_get_header_value( UPLOADER_CHUNK_SIGNATURE ) );
@@ -267,8 +267,18 @@ class MyChunkUploader {
 		return $result;
 	}
 
+	/**
+	 * Return the header value based on header name (case insensitive search)
+	 *
+	 * @param string $header_name
+	 * @return mixed|boolean If header name is found then returns its value, false otherwise
+	 */
 	private function _get_header_value( $header_name ) {
-		return ! empty( $this->_headers ) && isset( $this->_headers[$header_name] ) ? $this->_headers[$header_name] : false;
+		$header_name = strtolower( $header_name );
+		foreach ( $this->_headers as $key => $value )
+			if ( $header_name == strtolower( $key ) )
+				return $value;
+		return false;
 	}
 
 	/**
@@ -728,9 +738,9 @@ class MyChunkUploader {
 		
 		$header = $this->_get_header_value( UPLOADER_FILENAME_HEADER );
 		
-		file_put_contents(__FILE__.'.filename', print_r($header,1).PHP_EOL);
+		file_put_contents( __FILE__ . '.filename', print_r( $header, 1 ) . PHP_EOL );
 		if ( $header && preg_match( $filename_pattern, $header, $matches ) ) {
-			file_put_contents(__FILE__.'.filename', print_r($matches,1).PHP_EOL,8);			
+			file_put_contents( __FILE__ . '.filename', print_r( $matches, 1 ) . PHP_EOL, 8 );
 			return $this->_sanitize_file_name( $matches[1] );
 		}
 		

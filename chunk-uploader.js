@@ -431,7 +431,13 @@ function MyChunkUploader(class_signature) {
 			// trigger the progress event
 			if (null !== _this_.on_upload_progress) {
 				var eventSource = xhr.upload || xhr;
-				eventSource.addEventListener("progress", function(e) {
+
+				// IE8 wrapper
+				var _addEventListener = function(object, type, listener, useCapture) {
+					return 'function' == typeof object.addEventListener ? object.addEventListener(type, listener, useCapture) : object
+							.attachEvent(type, listener);
+				}
+				_addEventListener(eventSource, "progress", function(e) {
 					var chunk_pos = e.position || e.loaded;
 					var chunk_size = e.totalSize || e.total;
 

@@ -100,7 +100,7 @@ if (typeof XMLHttpRequest === 'undefined') {
 			return new ActiveXObject("Microsoft.XMLHTTP");
 		} catch (e) {
 		}
-		throw new Error("This browser does not support XMLHttpRequest.");
+		throw "This browser does not support XMLHttpRequest.";
 	};
 }
 
@@ -508,10 +508,10 @@ function MyChunkUploader(class_signature) {
 
 	this.upload_chunked = function(_url, _file, _nonce, _params) {
 		if (!this.supported)
-			throw new Error(not_supported_str);
+			throw not_supported_str;
 
 		if (null == _file.toString().match(/object\s+File/i))
-			throw new Error('Argument is not of File type');
+			throw 'Argument is not of File type';
 
 		start_time = Date.now();
 		eta = 0;

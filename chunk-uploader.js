@@ -126,7 +126,7 @@ function MyChunkUploader(class_signature) {
 	this.on_abort = null;
 
 	this.on_done = null;
-	//
+	// --
 
 	var slice_start;
 

@@ -253,7 +253,7 @@ function MyChunkUploader(class_signature) {
 
 		// parse the server response
 		try {
-			var json = JSON.parse(xhr.response);
+			var json = JSON.parse(xhr.responseText);
 
 			result.data = json;
 			if (json.hasOwnProperty('success')) {
@@ -265,7 +265,7 @@ function MyChunkUploader(class_signature) {
 				}
 			}
 		} catch (e) {
-			result.error = { message : xhr.response.length ? xhr.response : e.message,
+			result.error = { message : xhr.responseText.length ? xhr.responseText : e.message,
 			code : 'get_server_error' };
 		}
 
@@ -326,7 +326,7 @@ function MyChunkUploader(class_signature) {
 
 				console.print('onreadystatechange');
 				console.print(this);
-				console.print(e.response);
+				console.print(e.responseText);
 
 				sent_chunks--;// decrement the queue
 				console.print('decrementing sent_chunks=' + sent_chunks);
@@ -575,8 +575,8 @@ function MyChunkUploader(class_signature) {
 			if (this.readyState == 4 && null !== _this_.on_abort) {
 				if (this.status == 200) {
 					try {
-						console.print('_server_error=' + this.response);
-						_server_error = JSON.parse(this.response);
+						console.print('_server_error=' + this.responseText);
+						_server_error = JSON.parse(this.responseText);
 						if (Object.keys(_server_error).length) {// if not empty
 							_this_.on_abort(this, _server_error);
 							return;

@@ -108,8 +108,6 @@ function MyChunkUploader(class_signature) {
 
 	var wait_timeout = 3600;// sec
 
-	var not_supported_str = 'Either the File, FileReader, FileList or Blob types are not supported by your browser.<br>';
-
 	var server_error = false;
 
 	this.supported = false;
@@ -507,9 +505,6 @@ function MyChunkUploader(class_signature) {
 	};
 
 	this.upload_chunked = function(_url, _file, _nonce, _params) {
-//		if (!this.supported)
-//			throw new Error(not_supported_str);
-
 		if (null == _file.toString().match(/object\s+File/i))
 			throw new TypeError('Argument is not of File type');
 
@@ -605,7 +600,5 @@ function MyChunkUploader(class_signature) {
 
 	// check if the browser meets the minimal requirements
 	this.supported = window.File && window.FileReader && window.FileList && window.Blob && (window.Blob.prototype.slice || window.Blob.prototype.webkitSlice || window.Blob.prototype.mozSlice);
-	if (!this.supported) {
-		throw new Error(not_supported_str);
-	}
+
 }

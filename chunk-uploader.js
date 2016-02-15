@@ -35,7 +35,7 @@
 
 
 var console_print = function(str) {
-	//return;// comment this to enable debug messages
+	return;// comment this to enable debug messages
 	if (window.console)
 		console.log(str);
 };

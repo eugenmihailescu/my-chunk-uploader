@@ -160,7 +160,7 @@ function MyChunkUploader(class_signature) {
 
 	var is_running;
 
-	var UPLOADER_CHUNK_SIGNATURE = 'undefined' == typeof class_signature ? 'X-MyChunkUploader' : class_signature;
+	var UPLOADER_CHUNK_SIGNATURE = ('undefined' == typeof class_signature) || ([ '', null ].indexOf() != -1) ? 'X-MyChunkUploader' : class_signature;
 
 	var UPLOADER_RANGE_HEADER = 'Content-Range'; // the range header
 

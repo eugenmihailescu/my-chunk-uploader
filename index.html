@@ -61,61 +61,6 @@
 .row_upload_progress_error {
 	background-color: #FF6347;
 }
-
-.restore_drag_container {
-	border: 5px dashed #D9D9D9;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	padding: 2em;
-	text-align: center;
-}
-
-.restore_drag_over {
-	background: #F7F7F7;
-}
-
-.restore_drag_filelist {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 5px;
-	display: none;
-	border: 1px dashed #D9D9D9;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	width: 100%;
-}
-
-.restore_drag_filelist table {
-	width: 100%;
-}
-
-.restore_drag_filelist table td:first-child {
-	width: 70%;
-}
-
-.restore_drag_filelist table td:nth-child(2), .restore_drag_filelist table td:nth-child(3) {
-	width: 15%;
-}
-
-.restore_drag_filelist table td:nth-child(2) {
-	text-align: right;
-}
-
-.restore_drag_filelist td:first-child {
-	font-weight: bold;
-	text-align: left;
-}
-
-.restore_drag_filelist td:last-child {
-	text-align: left;
-}
-
-.restore_drag_filelist td {
-	padding-left: 5px;
-	padding-right: 5px;
-}
 </style>
 <script type="text/javascript" src="chunk-uploader.js"></script>
 </head>
@@ -147,25 +92,6 @@
 				</tr>
 			</table>
 		</fieldset>
-
-		<div style="text-align: center; margin-bottom: 10px;"></div>
-		<div id="drag_error" style="display: none;"></div>
-		<div class="restore_drag_container">
-			Drag &amp; drop or <input style="vertical-align: middle;"
-				class="button button-choose-file" value="select"
-				onclick="jsMyBackup.uploader_obj.upload_select_files();" type="button"><input
-				id="select_file_dialog" style="display: none" multiple=""
-				accept=".tar,.gz,.bz2,.zip" type="file"> a .tar|.gz|.bz2|.zip archive here.
-			<a href="http://php.net/manual/en/ini.core.php#ini.post-max-size"
-				target="_blank">Max</a> file size : <span id="upload_max_size">18.00 MiB</span>
-			<table style="display: none;" class="restore_drag_filelist"></table>
-			<div id="upload_restore_toolbar">
-				<input value="Restore 0 file(s)" id="upload_restore_now"
-					style="display: none; margin-left: auto; margin-right: auto"
-					class="button-primary" onclick="jsMyBackup.run_wp_restore1();"
-					type="button">
-			</div>
-		</div>
 		<div>
 			<input type="file" id="file" onchange="upload_file(this.files[0]);"> <input
 				type="button" id="abort" disabled value="Abort"

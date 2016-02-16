@@ -39,6 +39,8 @@ var console_print = function(str) {
 	if (window.console)
 		console.log(str);
 };
+
+// a wrapper use to output debug messages
 if (!window.console)
 	window.console = function() {
 		return { print : console_print };

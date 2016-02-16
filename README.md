@@ -65,7 +65,7 @@ The following events allow you to control the file progress and/or the upload st
 - `on_error (XHR,object,type)` : this function is called in case of a AJAX/HTTP error. *XHR* is the XMLHttpRequest object used for the current request. The *type* is a string specifying the error type (normally *server*). The JSON *object* contains the following arguments:
   * *success* : false
   * *json* : a JSON object containing among other properties the *name* which is the file name. Other properties might be *message* and *code* containing the error message and the error code.
-- `on_abort (object)` : this function is called after the `abort()` function was successfully acknowledged by the server. The JSON *object* contains the following arguments:
+- `on_abort (XHR, object)` : this function is called after the `abort()` function was successfully acknowledged by the server. The *XHR* is a reference to the current XMLHttpRequest instance. The JSON *object* contains the following arguments:
   * *success* : false
   * *message* : *Aborted by user*
   * *code* : *UI*

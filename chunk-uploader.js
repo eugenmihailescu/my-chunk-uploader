@@ -26,10 +26,10 @@
  * @version : 0.2.3-8 $
  * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
  * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Tue Feb 16 22:49:56 2016 UTC $
+ * @date    : Tue Feb 16 22:54:28 2016 UTC $
  * @file    : chunk-uploader.js $
  * 
- * @id      : chunk-uploader.js | Tue Feb 16 22:49:56 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id      : chunk-uploader.js | Tue Feb 16 22:54:28 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
 */
 
 

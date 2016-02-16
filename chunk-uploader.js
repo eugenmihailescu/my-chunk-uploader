@@ -46,13 +46,17 @@ if (!window.console)
 else
 	window.console.print = console_print;
 
+// wrapper for older browsers
 Date.now = Date.now || function() {
 	return +new Date;
 };
 
+// pad a H,M,S part with a zero when necessary
 Number.prototype.padTime = function() {
 	return (this < 10 ? '0' : '') + this;
 };
+
+// convert a timestamp to HH:MM:SS format
 Number.prototype.toHMS = function() {
 	var h = Math.floor(this / 3600);
 	var m = Math.floor((this - h * 3600) / 60);
@@ -182,7 +186,15 @@ function MyChunkUploader(class_signature) {
 	max_parallel_chunks : max_parallel_chunks,
 	wait_timeout : wait_timeout };
 
-	this.create_xhr = function(headers) {
+	/**
+	 * Creates a XMLHttpRequest object
+	 * 
+	 * @headers: optionally an header=value object|array, one element for each
+	 *           HTTP header
+	 * @nonce: optionally a string representing a security nonce to be sent to
+	 *         the remote server using a special header
+	 */
+	this.create_xhr = function(headers, nonce) {
 		var xhr = new XMLHttpRequest(), i;
 
 		xhr.open("POST", url, true);
@@ -202,11 +214,16 @@ function MyChunkUploader(class_signature) {
 		return xhr;
 	};
 
+	/**
+	 * Send a POST request using a given XMLHttpRequest object with custom data
+	 * 
+	 * @xhr: A XMLHttpRequest object used to send the request
+	 * @object: An Object that contains the data to be sent. The object is a
+	 *          property=value list.
+	 */
 	this.send_xhr = function(xhr, object) {
 		if ('object' != typeof xhr)
 			return false;
-
-		console.print('send_xhr');
 
 		// raw post
 		if (true === this.options.raw_post || 'object' != typeof object) {
@@ -272,19 +289,26 @@ function MyChunkUploader(class_signature) {
 		return result;
 	};
 
+	/**
+	 * Forwards a XMLHttpRequest error to a listening callback event
+	 * 
+	 * @xhr: A XMLHttpRequest object that is the source of the error
+	 * @error: An object that contains the error information {message:the error
+	 *         message,code:the error code,json:{name:the file name}}
+	 */
 	this.set_server_error = function(xhr, error) {
 		server_error = error;
 		is_running = false;
 		if (null !== this.on_error) {
-			console.print('set_server_error');
+
 			server_error.success = false;
 			if (server_error.hasOwnProperty('json'))
 				server_error.json.name = file.name;
 			else
 				server_error.json = { name : file.name };
+
 			this.on_error(xhr, server_error, 'server');
-		} else
-			console.print('Server error : ' + server_error.message + ' (' + server_error.code + ')');
+		}
 	};
 
 	/**
@@ -296,13 +320,12 @@ function MyChunkUploader(class_signature) {
 	 */
 	this.check_is_done = function(xhr, obj) {
 		var result = false;
-		console.print('check_is_done');
+
 		if (obj.hasOwnProperty('done') && obj.done) {
 			if ((file.size - sent_bytes > 0))
 				result = { message : 'Upload of ' + file.name + ' failed (sent only ' + sent_bytes + ' out of ' + file.size + ' bytes)',
 				code : 'incomplete' };
 			else {
-				console.print('is_done says: is ddddddoooooooooooooooonnnneeee');
 				if (null !== this.on_done) {
 					result = true;
 					this.on_done(xhr, start_time);
@@ -313,26 +336,22 @@ function MyChunkUploader(class_signature) {
 		return result;
 	};
 
-	// trigger the done|error events when receiving the server response
+	/**
+	 * A callback function triggered when receiving the server response (on
+	 * done|error)
+	 */
 	this.onreadystatechange = function(e) {
 		if (!is_running || server_error) {
 			// discard subsequent responses
-			console.print('discard subsequent onreadystatechange');
 			return;
 		}
 
 		if (e.readyState == 4) { // if POST DONE
 			if (e.status == 200) {// on success POST request
 
-				console.print('onreadystatechange');
-				console.print(this);
-				console.print(e.responseText);
-
 				sent_chunks--;// decrement the queue
-				console.print('decrementing sent_chunks=' + sent_chunks);
 
 				var response = get_server_error(e), error = false;
-				console.print(response);
 
 				// check for server status
 				if (false != response) {
@@ -359,8 +378,6 @@ function MyChunkUploader(class_signature) {
 				if (false != error) {
 					this.set_server_error(e, error);
 				} else {
-					console.print('onreadystate response is not error');
-					console.print(response.data);
 					if (response.data.success && response.data.json.hasOwnProperty('wait') && response.data.json.wait) {
 						// we send a new request using the original
 						// headers after a `wait` number of seconds
@@ -368,8 +385,6 @@ function MyChunkUploader(class_signature) {
 						// merged parts info
 						var _this_ = this;
 						setTimeout(function() {
-							console.print('creating wait_xhr');
-							console.print(_this_);
 							var wait_xhr = _this_.create_xhr(response.data.json.headers);
 
 							wait_xhr.onreadystatechange = function() {
@@ -399,14 +414,14 @@ function MyChunkUploader(class_signature) {
 		}
 	};
 
+	/**
+	 * Upload a slice of the file to the remote server
+	 * 
+	 * @_this_ : a reference to the current instance of this class
+	 */
 	this.upload_slice = function(_this_) {
 		var slice_end;
 		var concurrent_chunks = 'undefined' != typeof _this_.options.max_parallel_chunks && _this_.options.max_parallel_chunks ? _this_.options.max_parallel_chunks : 10;
-
-		console.print('sent_chunks=' + sent_chunks + '<' + concurrent_chunks);
-		console.print('server_error=');
-		console.print(server_error);
-		console.print('slice_start=' + slice_start + '<file.size=' + file.size);
 
 		if (false === server_error && sent_chunks < concurrent_chunks && slice_start < file.size) {
 
@@ -479,7 +494,6 @@ function MyChunkUploader(class_signature) {
 			chunk = null;
 
 			sent_chunks++;// increment the queue
-			console.print('incrementing sent_chunks=' + sent_chunks);
 
 			chunk_count++;// increment the total file chunks
 
@@ -495,15 +509,21 @@ function MyChunkUploader(class_signature) {
 		}
 
 		if (server_error || slice_start >= file.size) {
-			if (server_error)
-				console.print('server_error=true => clearInterval(loop)');
-			if (slice_start >= file.size)
-				console.print(slice_start + ' >= ' + file.size + ' => clearInterval(loop)');
+
 			clearInterval(loop);
 		}
 
 	};
 
+	/**
+	 * Slices a file into multiple chunks and uploads them to the specified url.
+	 * 
+	 * @_url: The URL where to upload the _file
+	 * @_file: The File to be uploaded
+	 * @_nonce: Optionally the security nonce to be sent
+	 * @_params: Optionally a list of param=value items to be sent within the
+	 *           POST request
+	 */
 	this.upload_chunked = function(_url, _file, _nonce, _params) {
 		if (null == _file.toString().match(/object\s+File/i))
 			throw new TypeError('Argument is not of File type');
@@ -514,8 +534,6 @@ function MyChunkUploader(class_signature) {
 		loop = null;
 		server_error = false;
 		server_error_code = 0;
-
-		console.print('sent_chunks=0');
 
 		slice_start = 0;
 		chunk_count = 0;
@@ -542,17 +560,18 @@ function MyChunkUploader(class_signature) {
 
 		var _this_ = this;
 
-		console.print('looping each ' + loop_interval + 'ms');
-
 		// create a new slice upload each 20ms
 		loop = window.setInterval(function() {
-			console.print('running within LOOP');
+
 			_this_.upload_slice(_this_);
 		}, loop_interval);
 	};
 
 	/**
-	 * Abort the current upload (if currently running)
+	 * Abort the current running upload
+	 * 
+	 * @params: Optionally a list of param=value items to be sent within the
+	 *          abort POST request
 	 */
 	this.abort = function(params) {
 		if (!is_running)
@@ -575,7 +594,6 @@ function MyChunkUploader(class_signature) {
 			if (this.readyState == 4 && null !== _this_.on_abort) {
 				if (this.status == 200) {
 					try {
-						console.print('_server_error=' + this.responseText);
 						_server_error = JSON.parse(this.responseText);
 						if (Object.keys(_server_error).length) {// if not empty
 							_this_.on_abort(this, _server_error);

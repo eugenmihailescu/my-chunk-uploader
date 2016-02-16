@@ -92,6 +92,29 @@
 				</tr>
 			</table>
 		</fieldset>
+
+		<div style="text-align: center; margin-bottom: 10px;">
+			Upload and restore an external/custom backup archive (<a
+				href="/wp-admin/tools.php?page=2f3da2ace3cd04c7aa55f318ae09c74f&amp;tab=welcome#wp_full_restore_extern"
+				target="_self">Read more</a>)
+		</div>
+		<div id="drag_error" style="display: none;"></div>
+		<div class="restore_drag_container">
+			Drag &amp; drop or <input style="vertical-align: middle;"
+				class="button button-choose-file" value="select"
+				onclick="jsMyBackup.uploader_obj.upload_select_files();" type="button"><input
+				id="select_file_dialog" style="display: none" multiple=""
+				accept=".tar,.gz,.bz2,.zip" type="file"> a .tar|.gz|.bz2|.zip archive here.
+			<a href="http://php.net/manual/en/ini.core.php#ini.post-max-size"
+				target="_blank">Max</a> file size : <span id="upload_max_size">18.00 MiB</span>
+			<table style="display: none;" class="restore_drag_filelist"></table>
+			<div id="upload_restore_toolbar">
+				<input value="Restore 0 file(s)" id="upload_restore_now"
+					style="display: none; margin-left: auto; margin-right: auto"
+					class="button-primary" onclick="jsMyBackup.run_wp_restore1();"
+					type="button">
+			</div>
+		</div>
 		<div>
 			<input type="file" id="file" onchange="upload_file(this.files[0]);"> <input
 				type="button" id="abort" disabled value="Abort"

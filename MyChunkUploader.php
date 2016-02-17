@@ -27,10 +27,10 @@
  * @version : 0.2.3-8 $
  * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
  * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Tue Feb 16 23:03:03 2016 UTC $
+ * @date    : Wed Feb 17 7:05:23 2016 UTC $
  * @file    : MyChunkUploader.php $
  * 
- * @id      : MyChunkUploader.php | Tue Feb 16 23:03:03 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id      : MyChunkUploader.php | Wed Feb 17 7:05:23 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
 */
 
 namespace MyChunkUploader;
@@ -225,7 +225,7 @@ class MyChunkUploader {
 			$this->_require_nonce = defined( __NAMESPACE__.'\\UPLOADER_REQUIRES_NONCE' ) && UPLOADER_REQUIRES_NONCE;
 		}
 		
-		$this->_tmp_dir = ! empty( $working_dir ) ? $working_dir : sys_get_temp_dir();
+		$this->_tmp_dir = ! empty( $working_dir ) ? $working_dir : _sys_get_temp_dir();
 		
 		// add directory trailing slash
 		if ( empty( $this->_tmp_dir ) || substr( $this->_tmp_dir, - 1 ) != DIRECTORY_SEPARATOR )

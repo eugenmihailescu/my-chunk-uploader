@@ -27,10 +27,10 @@
  * @version : 0.2.3-8 $
  * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
  * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Thu Feb 18 7:52:09 2016 UTC $
+ * @date    : Thu Feb 18 7:54:46 2016 UTC $
  * @file    : MyChunkUploader.php $
  * 
- * @id      : MyChunkUploader.php | Thu Feb 18 7:52:09 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id      : MyChunkUploader.php | Thu Feb 18 7:54:46 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
 */
 
 namespace MyChunkUploader;
@@ -354,7 +354,7 @@ class MyChunkUploader {
 		if ( _is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
 			foreach ( $this->_get_parts( false, false, $filename ) as $chunk_filename ) {
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
-					 is_file( $chunk_filename ) ) {
+					 _is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
 					// file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				}
@@ -449,7 +449,7 @@ class MyChunkUploader {
 		if ( $this->_filename ) {
 			
 			// overwrite the old file
-			is_file( $this->_filename ) && unlink( $this->_filename );
+			_is_file( $this->_filename ) && unlink( $this->_filename );
 			
 			$this->_raw_post = $this->is_raw_post();
 		} else {

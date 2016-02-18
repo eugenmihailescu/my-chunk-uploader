@@ -27,10 +27,10 @@
  * @version : 0.2.3-8 $
  * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
  * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Thu Feb 18 7:23:01 2016 UTC $
+ * @date    : Thu Feb 18 7:40:54 2016 UTC $
  * @file    : MyChunkUploader.php $
  * 
- * @id      : MyChunkUploader.php | Thu Feb 18 7:23:01 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id      : MyChunkUploader.php | Thu Feb 18 7:40:54 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
 */
 
 namespace MyChunkUploader;
@@ -231,7 +231,7 @@ class MyChunkUploader {
 		if ( empty( $this->_tmp_dir ) || substr( $this->_tmp_dir, - 1 ) != DIRECTORY_SEPARATOR )
 			$this->_tmp_dir .= DIRECTORY_SEPARATOR;
 		
-		is_dir( $this->_tmp_dir ) || mk_dir( $this->_tmp_dir );
+		_is_dir( $this->_tmp_dir ) || mk_dir( $this->_tmp_dir );
 		
 		// read the sent HTTP headers
 		$this->_headers = $this->array_intersect_ikey( getallheaders(), array_flip( $uploader_headers ) );
@@ -351,7 +351,7 @@ class MyChunkUploader {
 		// file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
 		// file_put_contents( '/tmp/clean_up', $filename . PHP_EOL, 8 );
 		
-		if ( is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
+		if ( _is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
 			foreach ( $this->_get_parts( false, false, $filename ) as $chunk_filename ) {
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
 					 is_file( $chunk_filename ) ) {

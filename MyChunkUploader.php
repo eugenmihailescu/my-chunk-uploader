@@ -27,10 +27,10 @@
  * @version : 0.2.3-8 $
  * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
  * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Fri Feb 19 8:42:15 2016 UTC $
+ * @date    : Fri Feb 19 9:02:35 2016 UTC $
  * @file    : MyChunkUploader.php $
  * 
- * @id      : MyChunkUploader.php | Fri Feb 19 8:42:15 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id      : MyChunkUploader.php | Fri Feb 19 9:02:35 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
 */
 
 namespace MyChunkUploader;

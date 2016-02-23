@@ -24,13 +24,13 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.3-8 $
- * @commit  : 010da912cb002abdf2f3ab5168bf8438b97133ea $
- * @author  : Eugen Mihailescu eugenmihailescux@gmail.com $
- * @date    : Mon Feb 22 18:52:33 2016 UTC $
- * @file    : upload.php $
+ * @version:	0.6.28-2 $
+ * @commit:		7d9b17cc2a1287ddd13053ac4651e2542096ccc0 $
+ * @author:		Eugen Mihailescu <eugenmihailescux@gmail.com> $
+ * @date:		Mon Jun 29 12:39:38 2015 +0200 $
+ * @file:		php-inject-glpv3.php $
  * 
- * @id      : upload.php | Mon Feb 22 18:52:33 2016 UTC | Eugen Mihailescu eugenmihailescux@gmail.com $
+ * @id:	php-inject-glpv3.php | Mon Jun 29 12:39:38 2015 +0200 | Eugen Mihailescu  $
 */
 
 namespace MyChunkUploader;

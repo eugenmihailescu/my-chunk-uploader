@@ -78,7 +78,7 @@ class MyUploadException extends \Exception {
 				$message = _esc( 'No file was uploaded' );
 				break;
 			case UPLOAD_ERR_NO_TMP_DIR :
-				$message = _esc( 'Missing a temporary folder' );
+				$message = _esc( 'Missing a temporary folder. Check the upload_tmp_dir directive in php.ini' );
 				break;
 			case UPLOAD_ERR_CANT_WRITE :
 				$message = _esc( 'Failed to write file to disk' );

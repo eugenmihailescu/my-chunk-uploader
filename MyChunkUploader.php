@@ -65,29 +65,30 @@ class MyUploadException extends \Exception {
 	private function _getMessage( $error_code ) {
 		switch ( $error_code ) {
 			case UPLOAD_ERR_INI_SIZE :
-				$message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+				$message = _esc( 'The uploaded file exceeds the upload_max_filesize directive in php.ini' );
 				break;
 			case UPLOAD_ERR_FORM_SIZE :
-				$message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+				$message = _esc( 
+					'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form' );
 				break;
 			case UPLOAD_ERR_PARTIAL :
-				$message = "The uploaded file was only partially uploaded";
+				$message = _esc( 'The uploaded file was only partially uploaded' );
 				break;
 			case UPLOAD_ERR_NO_FILE :
-				$message = "No file was uploaded";
+				$message = _esc( 'No file was uploaded' );
 				break;
 			case UPLOAD_ERR_NO_TMP_DIR :
-				$message = "Missing a temporary folder";
+				$message = _esc( 'Missing a temporary folder' );
 				break;
 			case UPLOAD_ERR_CANT_WRITE :
-				$message = "Failed to write file to disk";
+				$message = _esc( 'Failed to write file to disk' );
 				break;
 			case UPLOAD_ERR_EXTENSION :
-				$message = "File upload stopped by extension";
+				$message = _esc( 
+					'A PHP extension stopped the file upload. Examining the list of loaded PHP extensions may help.' );
 				break;
-			
 			default :
-				$message = "Unknown upload error";
+				$message = _esc( 'Unknown upload error' );
 				break;
 		}
 		return $message;

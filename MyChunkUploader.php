@@ -56,7 +56,7 @@ if ( ! function_exists( __NAMESPACE__ . '\\_esc' ) ) {
  * @author Eugen Mihailescu
  *        
  */
-class MyUploadException extends Exception {
+class MyUploadException extends \Exception {
 
 	public function __construct( $error_code ) {
 		parent::__construct( $this->_getMessage( $error_code ), $error_code );

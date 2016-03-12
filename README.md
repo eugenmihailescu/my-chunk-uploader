@@ -9,15 +9,15 @@ HOW IT WORKS
 ============
 
 To implement this functionality is straightforward:
-- your main `index.html` file initializes a MyChunkUploader JavaScript object (see `chunk-uploader.js`) followed by a upload_chunked ('/upload.php',FILE) call. This call sends a series of Ajax POST requests to the `upload.php` PHP script.
-- the `upload.php` receives the previous POST requests and forwards them to a MyChunkUploader PHP instance (see `MyChunkUploader.php`)
-- the MyChunkUploader PHP instance saves each chunk to a temporary file; when all chunks are received the temporary/chunked files are concatenated resulting the final uploaded file.
+- your main `index.html` file initializes a MyChunkUploader JavaScript object (see `chunk-uploader.js`) which you'll use it to start sending your file to the remote server. To do that you call the method upload_chunked ('/upload.php',FILE). This call splits the file into multiple chunks and sends them via a series of Ajax POST requests to the `upload.php` PHP script.
+- the `upload.php` is merly a dispatcher (however, this is where you can inject your own logic before the server accepting the client requests); it receives the previous POST requests and forwards them to a MyChunkUploader PHP instance (see `MyChunkUploader.php`)
+- the MyChunkUploader PHP instance saves each chunk to a temporary file; when all chunks are received the temporary/chunked files are concatenated resulting the final uploaded file which will be stored on a preset folder on the web server.
 
 REQUIREMENTS
 ============
 
 - front-end : IE10+, FF13+, Chrome10+, Opera12+
-- back-end  : PHP 5.3+
+- back-end  : PHP 5.3+, a web server with PHP support
 
 MyChunkUploader JavaScript class
 ================================

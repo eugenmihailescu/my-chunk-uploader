@@ -24,7 +24,7 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.3-16 $
+ * @version : 0.2.3-17 $
  * @commit  : b2d6fc9e73afbe50ea607559322b3b9790f58856 $
  * @author  : Eugen Mihailescu <eugenmihailescux@gmail.com> $
  * @date    : Mon Feb 22 20:33:08 2016 +0100 $
@@ -41,57 +41,6 @@ if ( ! function_exists( __NAMESPACE__ . '\\_esc' ) ) {
 
 	function _esc( $text ) {
 		return function_exists( '_' ) ? _( $text ) : ( function_exists( '__' ) ? __( $text ) : $text );
-	}
-}
-
-/**
- * Handling upload errors
- *
- * @class MyUploadException
- * @extends Exception
- *
- * @since 1.0
- * @version 1.0
- * @package package_name
- * @author Eugen Mihailescu
- *        
- */
-class MyUploadException extends \Exception {
-
-	public function __construct( $error_code ) {
-		parent::__construct( $this->_getMessage( $error_code ), $error_code );
-	}
-
-	private function _getMessage( $error_code ) {
-		switch ( $error_code ) {
-			case UPLOAD_ERR_INI_SIZE :
-				$message = _esc( 'The uploaded file exceeds the upload_max_filesize directive in php.ini' );
-				break;
-			case UPLOAD_ERR_FORM_SIZE :
-				$message = _esc( 
-					'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form' );
-				break;
-			case UPLOAD_ERR_PARTIAL :
-				$message = _esc( 'The uploaded file was only partially uploaded' );
-				break;
-			case UPLOAD_ERR_NO_FILE :
-				$message = _esc( 'No file was uploaded' );
-				break;
-			case UPLOAD_ERR_NO_TMP_DIR :
-				$message = _esc( 'Missing a temporary folder. Check the upload_tmp_dir directive in php.ini' );
-				break;
-			case UPLOAD_ERR_CANT_WRITE :
-				$message = _esc( 'Failed to write file to disk' );
-				break;
-			case UPLOAD_ERR_EXTENSION :
-				$message = _esc( 
-					'A PHP extension stopped the file upload. Examining the list of loaded PHP extensions may help.' );
-				break;
-			default :
-				$message = _esc( 'Unknown upload error' );
-				break;
-		}
-		return $message;
 	}
 }
 
@@ -592,7 +541,7 @@ class MyChunkUploader {
 					return ( $a < $b ? - 1 : 1 ) * ( $desc ? - 1 : 1 );
 			} );
 		
-		return ! $parts ? array() : $parts;
+		return $parts;
 	}
 
 	/**

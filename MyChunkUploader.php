@@ -24,13 +24,13 @@
  * 
  * Git revision information:
  * 
- * @version : 0.2.3-27 $
- * @commit  : 10d36477364718fdc9b9947e937be6078051e450 $
+ * @version : 0.2.3-30 $
+ * @commit  : 11b68819d76b3ad1fed1c955cefe675ac23d8def $
  * @author  : eugenmihailescu <eugenmihailescux@gmail.com> $
- * @date    : Fri Mar 18 10:06:27 2016 +0100 $
+ * @date    : Fri Mar 18 17:18:30 2016 +0100 $
  * @file    : MyChunkUploader.php $
  * 
- * @id      : MyChunkUploader.php | Fri Mar 18 10:06:27 2016 +0100 | eugenmihailescu <eugenmihailescux@gmail.com> $
+ * @id      : MyChunkUploader.php | Fri Mar 18 17:18:30 2016 +0100 | eugenmihailescu <eugenmihailescux@gmail.com> $
 */
 
 namespace MyChunkUploader;

@@ -276,13 +276,13 @@ class MyChunkUploader {
 			$this->_require_nonce = defined( __NAMESPACE__.'\\UPLOADER_REQUIRES_NONCE' ) && UPLOADER_REQUIRES_NONCE;
 		}
 		
-		$this->_tmp_dir = ! empty( $working_dir ) ? $working_dir : _sys_get_temp_dir();
+		$this->_tmp_dir = ! empty( $working_dir ) ? $working_dir : sys_get_temp_dir();
 		
 		// add directory trailing slash
 		if ( empty( $this->_tmp_dir ) || substr( $this->_tmp_dir, - 1 ) != DIRECTORY_SEPARATOR )
 			$this->_tmp_dir .= DIRECTORY_SEPARATOR;
 		
-		_is_dir( $this->_tmp_dir ) || mk_dir( $this->_tmp_dir );
+		is_dir( $this->_tmp_dir ) || mk_dir( $this->_tmp_dir );
 		
 		// read the sent HTTP headers
 		$this->_headers = $this->array_intersect_ikey( getallheaders(), array_flip( $uploader_headers ) );
@@ -402,10 +402,10 @@ class MyChunkUploader {
 		// file_put_contents( '/tmp/clean_up', $this->_tmp_dir . PHP_EOL );
 		// file_put_contents( '/tmp/clean_up', $filename . PHP_EOL, 8 );
 		
-		if ( _is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
+		if ( is_dir( $this->_tmp_dir ) && ! empty( $filename ) )
 			foreach ( $this->_get_parts( false, false, $filename ) as $chunk_filename ) {
 				if ( ! empty( $chunk_filename ) && 0 === strpos( $chunk_filename, $this->_tmp_dir ) &&
-					 _is_file( $chunk_filename ) ) {
+					 is_file( $chunk_filename ) ) {
 					@unlink( $chunk_filename );
 					// file_put_contents( '/tmp/clean_up', 'XXX:' . $chunk_filename . PHP_EOL, 8 );
 				}
@@ -500,7 +500,7 @@ class MyChunkUploader {
 		if ( $this->_filename ) {
 			
 			// overwrite the old file
-			_is_file( $this->_filename ) && unlink( $this->_filename );
+			is_file( $this->_filename ) && unlink( $this->_filename );
 			
 			$this->_raw_post = $this->is_raw_post();
 		} else {
